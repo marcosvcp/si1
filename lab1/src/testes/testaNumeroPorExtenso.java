@@ -1,8 +1,8 @@
 package testes;
 
 import static org.junit.Assert.assertEquals;
-import main.NumberManager;
 import main.Number;
+import main.NumberManager;
 
 import org.junit.Test;
 
@@ -61,7 +61,12 @@ public class testaNumeroPorExtenso {
 
 	@Test
 	public void testaExcecoes() {
-
+		final String STRING_VAZIA = "";
+		final String INVALID_INPUT = "Qualquercoisa";
+		assertEquals(NumberManager.INITIAL_PROMPT,
+				NumberManager.readInput(STRING_VAZIA));
+		assertEquals(NumberManager.ERROR_PROMPT,
+				NumberManager.readInput(INVALID_INPUT));
 	}
 
 	@Test
