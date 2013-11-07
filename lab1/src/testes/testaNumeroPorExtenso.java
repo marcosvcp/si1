@@ -1,64 +1,68 @@
 package testes;
 
-import org.junit.Assert;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
+import main.NumberManager;
+import main.Numero;
+
 import org.junit.Test;
 
 public class testaNumeroPorExtenso {
 
-	private NumberExtensive numberExtensive;
+	@Test
+	private void testaUnidadesNumerosPorExtenso() {
+		assertEquals(NumberManager.parse("0"), Numero.ZERO);
+		assertEquals(NumberManager.parse("1"), Numero.UM);
+		assertEquals(NumberManager.parse("2"), Numero.DOIS);
+		assertEquals(NumberManager.parse("3"), Numero.TRES);
+		assertEquals(NumberManager.parse("4"), Numero.QUATRO);
+		assertEquals(NumberManager.parse("5"), Numero.CINCO);
+		assertEquals(NumberManager.parse("6"), Numero.SEIS);
+		assertEquals(NumberManager.parse("7"), Numero.SETE);
+		assertEquals(NumberManager.parse("8"), Numero.OITO);
+		assertEquals(NumberManager.parse("9"), Numero.NOVE);
+	}
 
-	@Before
-	public void setUp() {
+	@Test
+	private void testaDezenasNumerosPorExtenso() {
+		assertEquals(NumberManager.parse("10"), Numero.DEZ);
+		assertEquals(NumberManager.parse("11"), Numero.ONZE);
+		assertEquals(NumberManager.parse("12"), Numero.DOZE);
+		assertEquals(NumberManager.parse("13"), Numero.TREZE);
+		assertEquals(NumberManager.parse("14"), Numero.CATORZE);
+		assertEquals(NumberManager.parse("15"), Numero.QUINZE);
+		assertEquals(NumberManager.parse("16"), Numero.DEZESSEIS);
+		assertEquals(NumberManager.parse("17"), Numero.DEZESSETE);
+		assertEquals(NumberManager.parse("18"), Numero.DEZOITO);
+		assertEquals(NumberManager.parse("19"), Numero.DEZENOVE);
+		assertEquals(NumberManager.parse("20"), Numero.VINTE);
+		assertEquals(NumberManager.parse("30"), Numero.TRINTA);
+		assertEquals(NumberManager.parse("40"), Numero.QUARENTA);
+		assertEquals(NumberManager.parse("50"), Numero.CINQUENTA);
+		assertEquals(NumberManager.parse("60"), Numero.SESSENTA);
+		assertEquals(NumberManager.parse("70"), Numero.SETENTA);
+		assertEquals(NumberManager.parse("80"), Numero.OITENTA);
+		assertEquals(NumberManager.parse("90"), Numero.NOVENTA);
+	}
+
+	@Test
+	private void testaCentenasNumerosPorExtenso() {
+		assertEquals("cento", Numero.CENTO);
+		assertEquals(NumberManager.parse("100"), Numero.CEM);
+		assertEquals(NumberManager.parse("200"), Numero.DUZENTOS);
+		assertEquals(NumberManager.parse("300"), Numero.TREZENTOS);
+		assertEquals(NumberManager.parse("400"), Numero.QUATROCENTOS);
+		assertEquals(NumberManager.parse("500"), Numero.QUINHENTOS);
+		assertEquals(NumberManager.parse("600"), Numero.SEISCENTOS);
+		assertEquals(NumberManager.parse("700"), Numero.SETECENTOS);
+		assertEquals(NumberManager.parse("800"), Numero.OITOCENTOS);
+		assertEquals(NumberManager.parse("900"), Numero.NOVECENTOS);
 
 	}
 
 	@Test
-	private void testaUnidadesPorExtenso() {
-		assertEquals(numberExtensive.parseNumberToExtensive("0"),
-				UNIDADE.ZERO);
-		assertEquals(numberExtensive.parseNumberToExtensive("1"), UNIDADE.UM);
-		assertEquals(numberExtensive.parseNumberToExtensive("2"), UNIDADE.DOIS);
-		assertEquals(numberExtensive.parseNumberToExtensive("3"), UNIDADE.TRES);
-		assertEquals(numberExtensive.parseNumberToExtensive("4"), UNIDADE.QUATRO);
-		assertEquals(numberExtensive.parseNumberToExtensive("5"), UNIDADE.CINCO);
-		assertEquals(numberExtensive.parseNumberToExtensive("6"), UNIDADE.SEIS);
-		assertEquals(numberExtensive.parseNumberToExtensive("7"), UNIDADE.SETE);
-		assertEquals(numberExtensive.parseNumberToExtensive("8"), UNIDADE.OITO);
-		assertEquals(numberExtensive.parseNumberToExtensive("9"), UNIDADE.NOVE);
-	}
-	
-	@Test
-	private void testaDezenasPorExtenso() {
-		assertEquals(numberExtensive.parseNumberToExtensive("10"),
-				DEZENA.DEZ);
-		assertEquals(numberExtensive.parseNumberToExtensive("11"),
-				DEZENA.ONZE);
-		assertEquals(numberExtensive.parseNumberToExtensive("12"),
-				DEZENA.DOZE);
-		assertEquals(numberExtensive.parseNumberToExtensive("13"),
-				DEZENA.TREZE);
-		assertEquals(numberExtensive.parseNumberToExtensive("14"),
-				DEZENA.CATORZE);
-		assertEquals(numberExtensive.parseNumberToExtensive("15"),
-				DEZENA.QUINZE);
-		assertEquals(numberExtensive.parseNumberToExtensive("16"),
-				DEZENA.DEZESSEIS);
-		assertEquals(numberExtensive.parseNumberToExtensive("17"),
-				DEZENA.DEZESSETE);
-		assertEquals(numberExtensive.parseNumberToExtensive("18"),
-				DEZENA.DEZOITO);
-		assertEquals(numberExtensive.parseNumberToExtensive("19"),
-				DEZENA.DEZENOVE);
-		assertEquals(numberExtensive.parseNumberToExtensive("20"),
-				DEZENA.VINTE);
-		assertEquals(numberExtensive.parseNumberToExtensive("30"), DEZENA.TRINTA);
-		assertEquals(numberExtensive.parseNumberToExtensive("40"), DEZENA.QUARENTA);
-		assertEquals(numberExtensive.parseNumberToExtensive("50"), DEZENA.CINQUENTA);
-		assertEquals(numberExtensive.parseNumberToExtensive("60"), DEZENA.SESSENTA);
-		assertEquals(numberExtensive.parseNumberToExtensive("70"), DEZENA.SETENTA);
-		assertEquals(numberExtensive.parseNumberToExtensive("80"), DEZENA.OITENTA);
-		assertEquals(numberExtensive.parseNumberToExtensive("90"), DEZENA.NOVENTA);
-	}
+	private void testaCombinacoesPorExtenso() {
+		assertEquals(NumberManager.parse("101"),
+				NumberManager.join(Numero.CENTO, Numero.ZERO, Numero.UM));
 
+	}
 }
