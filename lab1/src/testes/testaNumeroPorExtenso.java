@@ -1,6 +1,9 @@
 package testes;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import javax.naming.OperationNotSupportedException;
+
 import main.Number;
 import main.NumberManager;
 
@@ -63,16 +66,29 @@ public class testaNumeroPorExtenso {
 	public void testaExcecoes() {
 		final String STRING_VAZIA = "";
 		final String INVALID_INPUT = "Qualquercoisa";
-		assertEquals(NumberManager.INITIAL_PROMPT,
-				NumberManager.readInput(STRING_VAZIA));
-		assertEquals(NumberManager.ERROR_PROMPT,
-				NumberManager.readInput(INVALID_INPUT));
+		try {
+			NumberManager.readInput(STRING_VAZIA);
+			fail("Era pra ter lançado excessão");
+		} catch (OperationNotSupportedException exception) {
+			// ok
+		}
+		try {
+			NumberManager.readInput(INVALID_INPUT);
+			fail("Era pra ter lançado excessão");
+		} catch (OperationNotSupportedException exception) {
+			// ok
+		}
 	}
 
 	@Test
 	public void testaCombinacoesPorExtenso() {
 		assertEquals(NumberManager.parse("101"),
 				NumberManager.join(Number.CENTO, Number.ZERO, Number.UM));
+		assertEquals(NumberManager.parse("123412"), NumberManager.join(
+				Number.CENTO, Number.VINTE, Number.TRES, Number.QUATROCENTOS,
+				Number.DEZ, Number.DOIS));
+		assertEquals(NumberManager.parse("6434"), NumberManager.join(
+				Number.SEIS, Number.QUATROCENTOS, Number.TRINTA, Number.QUATRO));
 
 	}
 }

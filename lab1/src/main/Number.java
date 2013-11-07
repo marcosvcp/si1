@@ -12,7 +12,8 @@ public enum Number {
 			"duzentos"), TREZENTOS("trezentos"), QUATROCENTOS("quatrocentos"), QUINHENTOS(
 			"quinhentos"), SEISCENTOS("seissentos"), SETECENTOS("setessentos"), OITOCENTOS(
 			"oitocentos"), NOVECENTOS("novecentos"), MIL("mil"), MILHAO(
-			"milhão"), BILHAO("bilhão"), MILHOES("milhões"), BILHOES("bilhões");
+			"milhão"), BILHAO("bilhão"), MILHOES("milhões"), BILHOES("bilhões"), CONECTIVO(
+			"e");
 	;
 
 	private String numberName;
