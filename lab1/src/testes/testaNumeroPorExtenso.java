@@ -21,16 +21,16 @@ public class testaNumeroPorExtenso {
 
 	@Test
 	public void testaUnidadesNumerosPorExtenso() {
-		assertEquals(nm.parse("0"), Number.ZERO);
-		assertEquals(nm.parse("1"), Number.UM);
-		assertEquals(nm.parse("2"), Number.DOIS);
-		assertEquals(nm.parse("3"), Number.TRES);
-		assertEquals(nm.parse("4"), Number.QUATRO);
-		assertEquals(nm.parse("5"), Number.CINCO);
-		assertEquals(nm.parse("6"), Number.SEIS);
-		assertEquals(nm.parse("7"), Number.SETE);
-		assertEquals(nm.parse("8"), Number.OITO);
-		assertEquals(nm.parse("9"), Number.NOVE);
+		assertEquals(nm.parse("0"), Number.ZERO.toString());
+		assertEquals(nm.parse("1"), Number.UM.toString());
+		assertEquals(nm.parse("2"), Number.DOIS.toString());
+		assertEquals(nm.parse("3"), Number.TRES.toString());
+		assertEquals(nm.parse("4"), Number.QUATRO.toString());
+		assertEquals(nm.parse("5"), Number.CINCO.toString());
+		assertEquals(nm.parse("6"), Number.SEIS.toString());
+		assertEquals(nm.parse("7"), Number.SETE.toString());
+		assertEquals(nm.parse("8"), Number.OITO.toString());
+		assertEquals(nm.parse("9"), Number.NOVE.toString());
 	}
 
 	@Test
@@ -58,16 +58,16 @@ public class testaNumeroPorExtenso {
 	@Test
 	public void testaCentenasNumerosPorExtenso() {
 		final String CENTO = "cento";
-		assertEquals(CENTO, Number.CENTO);
-		assertEquals(nm.parse("100"), Number.CEM);
-		assertEquals(nm.parse("200"), Number.DUZENTOS);
-		assertEquals(nm.parse("300"), Number.TREZENTOS);
-		assertEquals(nm.parse("400"), Number.QUATROCENTOS);
-		assertEquals(nm.parse("500"), Number.QUINHENTOS);
-		assertEquals(nm.parse("600"), Number.SEISCENTOS);
-		assertEquals(nm.parse("700"), Number.SETECENTOS);
-		assertEquals(nm.parse("800"), Number.OITOCENTOS);
-		assertEquals(nm.parse("900"), Number.NOVECENTOS);
+		assertEquals(CENTO, Number.CENTO.toString());
+		assertEquals(nm.parse("100"), Number.CEM.toString());
+		assertEquals(nm.parse("200"), Number.DUZENTOS.toString());
+		assertEquals(nm.parse("300"), Number.TREZENTOS.toString());
+		assertEquals(nm.parse("400"), Number.QUATROCENTOS.toString());
+		assertEquals(nm.parse("500"), Number.QUINHENTOS.toString());
+		assertEquals(nm.parse("600"), Number.SEISCENTOS.toString());
+		assertEquals(nm.parse("700"), Number.SETECENTOS.toString());
+		assertEquals(nm.parse("800"), Number.OITOCENTOS.toString());
+		assertEquals(nm.parse("900"), Number.NOVECENTOS.toString());
 	}
 
 	@Test

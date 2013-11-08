@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.naming.OperationNotSupportedException;
@@ -52,13 +51,15 @@ public class NumberManager {
 			String centena = "";
 			String dezena = "";
 
+			// As tres ultimas casas do número não tem nomenclatura
+			// especial(mil, milhão.. etc)
 			casaSelecionada = index == numberArray.length - 1 ? ""
 					: getNumerationMap().get((numberArray.length - 1) - index)
 							.toString();
 
 			switch (numberNow.length()) {
 			case 3:
-				if (ehCasoEspecial(numberNow, 3)) {
+				if (isSpecialCase(numberNow, 3)) {
 					unidade = "";
 					dezena = searchValue(Number.values(),
 							numberNow.substring(1)).toString()
@@ -76,7 +77,7 @@ public class NumberManager {
 						+ ESPACO;
 				break;
 			case 2:
-				if (ehCasoEspecial(numberNow, 2)) {
+				if (isSpecialCase(numberNow, 2)) {
 					unidade = "";
 					dezena = searchValue(Number.values(),
 							numberNow.substring(0)).toString()
@@ -105,11 +106,21 @@ public class NumberManager {
 		return numberFullOutPut.toString();
 	}
 
-	private boolean ehCasoEspecial(String numberNow, int length) {
+	/**
+	 * Retorna se o número tem tratamento especial caso ele seja da casa das
+	 * dezenas entre 10 e 20, que são nomes diferenciados.
+	 * 
+	 * @return true caso o número comece com 1.
+	 */
+	private boolean isSpecialCase(String numberNow, int length) {
 		return (numberNow.toCharArray()[length - 2] == ('1'));
 
 	}
 
+	/**
+	 * Procura o valor refere ao {@code numberToSearch} dentro dos valores
+	 * apresentados do Enum.
+	 */
 	private Number searchValue(Number[] values, String numberToSearch) {
 		for (Number number : values) {
 			if (number.getValue().equals(numberToSearch)) {
@@ -145,11 +156,15 @@ public class NumberManager {
 	 */
 	public String join(String... numbers) {
 		StringBuilder joinNumbersString = new StringBuilder("");
-		for (String number : numbers) {
+		for (int index = 0; index < numbers.length; index++) {
 			if (!Strings.isNullOrEmpty(joinNumbersString.toString())) {
-				joinNumbersString.append("e ");
+				if (numbers.length >= 3 && index != 1) {
+					joinNumbersString.append("e ");
+				} else if (numbers.length < 3) {
+					joinNumbersString.append("e ");
+				}
 			}
-			joinNumbersString.append(number);
+			joinNumbersString.append(numbers[index]);
 		}
 		return joinNumbersString.toString();
 	}
