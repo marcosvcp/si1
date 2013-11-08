@@ -21,7 +21,7 @@ public enum Number {
 			"8d"), NOVENTA("noventa", "9d"), CENTO("cento", "1c"), CEM("cem",
 			"1cc"), DUZENTOS("duzentos", "2c"), TREZENTOS("trezentos", "3c"), QUATROCENTOS(
 			"quatrocentos", "4c"), QUINHENTOS("quinhentos", "5c"), SEISCENTOS(
-			"seissentos", "6c"), SETECENTOS("setessentos", "7c"), OITOCENTOS(
+			"seiscentos", "6c"), SETECENTOS("setecentos", "7c"), OITOCENTOS(
 			"oitocentos", "8c"), NOVECENTOS("novecentos", "9c"), MIL("mil", "m"), MILHAO(
 			"milhão", "1ml"), BILHAO("bilhão", "1bl"), MILHOES("milhões", "mls");
 	;

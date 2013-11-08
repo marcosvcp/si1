@@ -51,9 +51,9 @@ public class NumberManager {
 
 			boolean isLastNumber = (index == numberArray.length - 1);
 			// Número corrente
-			String numberNow = numberArray[index];
+			String currentNumber = numberArray[index];
 
-			if (Strings.isNullOrEmpty(numberNow)) {
+			if (Strings.isNullOrEmpty(currentNumber)) {
 				continue;
 			}
 
@@ -64,73 +64,75 @@ public class NumberManager {
 			// As tres ultimas casas do número não tem nomenclatura
 			// especial(mil, milhão.. etc)
 			int casaSelecionadaIndex = (numberArray.length - 1) - index;
+
+			// Caso não seja a última parte do número ( a qual não tem nome )
+			// não se coloca nada.
 			casaSelecionada = index == numberArray.length - 1 ? ""
 					: getNumerationMap().get(casaSelecionadaIndex).toString()
 							+ ESPACO;
 
 			// Apenas no caso do número ser 1 milhão se coloca no singular.
-			if (numberNow.equals(Number.UM.getNumberName())
+			if (currentNumber.equals(Number.UM.getValue())
 					&& casaSelecionadaIndex == 2) {
 				casaSelecionada = Number.MILHAO.toString();
 			}
-			switch (numberNow.length()) {
+			switch (currentNumber.length()) {
 			case 1:
 				// Caso do número ter apenas a casa das unidades.
-				unidade = searchValue(numberEnumValues, numberNow.substring(0))
-						.toString() + ESPACO;
-				if (isLastNumber) {
-					unidade = searchValue(numberEnumValues,
-							numberNow.substring(0)).toString();
+				unidade = searchValue(numberEnumValues,
+						currentNumber.substring(0)).toString();
+				if (!isLastNumber) {
+					unidade += ESPACO;
 				}
 				break;
 			case 2:
 				// Caso do número ter apenas a casa das dezenas.
-				if (isSpecialCase(numberNow, 2)) {
+				if (isSpecialCase(currentNumber, 2)) {
 					unidade = "";
 					dezena = searchValue(numberEnumValues,
-							numberNow.substring(0)).toString()
-							+ ESPACO;
+							currentNumber.substring(0)).toString();
 				} else {
 					unidade = searchValue(numberEnumValues,
-							numberNow.substring(1)).toString()
+							currentNumber.substring(1)).toString()
 							+ ESPACO;
 					unidade = unidade.trim()
 							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
 					dezena = searchValue(numberEnumValues,
-							(numberNow.toCharArray()[0] + "d")).toString()
-							+ ESPACO;
+							(currentNumber.toCharArray()[0] + "d")).toString();
 				}
+				dezena += ESPACO;
 				break;
 			// Caso do número ter a casa das centenas
 			case 3:
 				// Caso especial do número ser 100
-				if (numberNow.trim().equals("100")) {
+				if (currentNumber.trim().equals("100")) {
 					centena = Number.CEM.toString() + ESPACO;
 					break;
 				}
-				if (isSpecialCase(numberNow, 3)) {
+				if (isSpecialCase(currentNumber, 3)) {
 					unidade = "";
 					dezena = searchValue(numberEnumValues,
-							numberNow.substring(1)).toString()
-							+ ESPACO;
+							currentNumber.substring(1)).toString();
 				} else {
 					unidade = searchValue(numberEnumValues,
-							numberNow.substring(2)).toString()
+							currentNumber.substring(2)).toString()
 							+ ESPACO;
 					unidade = unidade.trim()
 							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
 					dezena = searchValue(numberEnumValues,
-							(numberNow.toCharArray()[1] + "d")).toString()
-							+ ESPACO;
+							(currentNumber.toCharArray()[1] + "d")).toString();
 				}
+				dezena += ESPACO;
 				centena = searchValue(numberEnumValues,
-						numberNow.toCharArray()[0] + "c").toString()
+						currentNumber.toCharArray()[0] + "c").toString()
 						+ ESPACO;
 				break;
 			default:
 				break;
 			}
+			// Junta os números
 			String joinNumbers = join(centena, dezena, unidade);
+			// Coloca o nome da casa após a junção.
 			String outputToWrite = Strings.isNullOrEmpty(joinNumbers.trim()) ? ""
 					: joinNumbers + casaSelecionada + ESPACO;
 
@@ -220,14 +222,19 @@ public class NumberManager {
 	 */
 	public String readInput(String numberInput)
 			throws OperationNotSupportedException, IllegalArgumentException {
+		// Esse regex significa que a entrada não pode conter letras.
 		if (numberInput.matches("[a-zA-Z]+.")) {
 			throw new OperationNotSupportedException("Letras não são válidas. "
 					+ ERROR_PROMPT + INITIAL_PROMPT);
 		}
-		if (!numberInput.matches("[0-9]{1,9}")) {
+		// Esse regex quer dizer que a entrada pode ser seguida de quantos zeros
+		// for a sua esquerda, ou pode começar com 1 e vir seguidos de 9 digitos
+		// no máximo.
+		if (!numberInput.matches("0*?1?[0-9]{1,9}")) {
 			throw new IllegalArgumentException("A entrada deve ser não vazia. "
 					+ ERROR_PROMPT + INITIAL_PROMPT);
 		}
+		// Elimina os 0's à esquerda
 		return parse(String.format("%d", Integer.parseInt(numberInput)));
 	}
 
