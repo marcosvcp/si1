@@ -243,7 +243,7 @@ public class NumberManager {
 		// Esse regex quer dizer que a entrada pode ser seguida de quantos zeros
 		// for a sua esquerda, ou pode começar com 1 e vir seguidos de 9 digitos
 		// no máximo.
-		if (!numberInput.matches("0*?1?[0-9]{1,9}")) {
+		if (!numberInput.matches("0*?((1(0){9})|([0-9]{1,9}))")) {
 			throw new IllegalArgumentException("A entrada deve ser não vazia. "
 					+ ERROR_PROMPT + INITIAL_PROMPT);
 		}
