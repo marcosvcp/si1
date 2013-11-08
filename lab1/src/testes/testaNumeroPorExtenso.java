@@ -112,5 +112,6 @@ public class testaNumeroPorExtenso {
 		assertEquals("um bilhão", nm.parse("1000000000"));
 		assertEquals("um milhão", nm.parse("1000000"));
 		assertEquals("doze milhões cento e vinte e quatro mil seiscentos e oitenta", nm.parse("12124680"));
+		assertEquals("um mil e catorze", nm.parse("1014"));
 	}
 }

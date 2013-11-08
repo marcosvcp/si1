@@ -8,7 +8,10 @@ import com.google.common.base.Strings;
 
 /**
  * Essa classe é utilizada como um controlador de números. Ela faz uso de um
- * parser para extenso de um número dado como String.
+ * parser para extenso de um número dado como String. Atenção, muita parte do
+ * código foi usada REGEX (regular expression) para facilitar o algoritmo, para
+ * entender mais consultar. {@link http
+ * ://docs.oracle.com/javase/1.4.2/docs/api/java/util/regex/Pattern.html}
  */
 public class NumberManager {
 	public static final String INITIAL_PROMPT = "Digite um número natural entre 0 e 1000000000 (um bilhão) :\n";
@@ -46,6 +49,8 @@ public class NumberManager {
 		String[] numberArray = separaNumeros(number);
 		Number[] numberEnumValues = Number.values();
 		String casaSelecionada;
+		final String DEZENA_IDENTIFIER = "d";
+		final String CENTENA_IDENTIFIER = "c";
 
 		for (int index = 0; index < numberArray.length; index++) {
 
@@ -95,10 +100,13 @@ public class NumberManager {
 					unidade = searchValue(numberEnumValues,
 							currentNumber.substring(1)).toString()
 							+ ESPACO;
+					// Nao pode ter "zero" no nome do número
 					unidade = unidade.trim()
 							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
-					dezena = searchValue(numberEnumValues,
-							(currentNumber.toCharArray()[0] + "d")).toString();
+					dezena = searchValue(
+							numberEnumValues,
+							(currentNumber.toCharArray()[0] + DEZENA_IDENTIFIER))
+							.toString();
 				}
 				dezena += ESPACO;
 				break;
@@ -117,15 +125,18 @@ public class NumberManager {
 					unidade = searchValue(numberEnumValues,
 							currentNumber.substring(2)).toString()
 							+ ESPACO;
+					// Nao pode ter "zero" no nome do número
 					unidade = unidade.trim()
 							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
-					dezena = searchValue(numberEnumValues,
-							(currentNumber.toCharArray()[1] + "d")).toString();
+					dezena = searchValue(
+							numberEnumValues,
+							(currentNumber.toCharArray()[1] + DEZENA_IDENTIFIER))
+							.toString();
 				}
 				dezena += ESPACO;
 				centena = searchValue(numberEnumValues,
-						currentNumber.toCharArray()[0] + "c").toString()
-						+ ESPACO;
+						currentNumber.toCharArray()[0] + CENTENA_IDENTIFIER)
+						.toString() + ESPACO;
 				break;
 			default:
 				break;
@@ -160,7 +171,8 @@ public class NumberManager {
 	 * @return true caso o número comece com 1.
 	 */
 	private boolean isSpecialCase(String numberNow, int length) {
-		return (numberNow.toCharArray()[length - 2] == ('1'));
+		final int CASA_DEZENA = 2;
+		return (numberNow.toCharArray()[length - CASA_DEZENA] == ('1'));
 	}
 
 	/**
@@ -189,6 +201,7 @@ public class NumberManager {
 	private String[] separaNumeros(String number) {
 		StringBuffer numberInputBuffer = new StringBuffer(number);
 		String inverseNumber = numberInputBuffer.reverse().toString();
+		// Esse regex significa quebrar o número de 3 em 3 algarismos
 		String inverseNumberReplaced = inverseNumber.replaceAll("[0-9]{3}",
 				"$0s");
 		String reverseNumber = new StringBuffer(inverseNumberReplaced)
