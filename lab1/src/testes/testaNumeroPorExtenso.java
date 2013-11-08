@@ -74,6 +74,7 @@ public class testaNumeroPorExtenso {
 	public void testaExcecoes() {
 		final String STRING_VAZIA = "";
 		final String INVALID_INPUT = "Qualquercoisa";
+		final String INVALID_INPUT_LETERS = "Abasd123";
 		try {
 			nm.readInput(STRING_VAZIA);
 			fail("Era pra ter lançado excessão");
@@ -82,6 +83,15 @@ public class testaNumeroPorExtenso {
 		}
 		try {
 			nm.readInput(INVALID_INPUT);
+			fail("Era pra ter lançado excessão");
+		} catch (IllegalArgumentException exception) {
+			// ok
+		} catch (OperationNotSupportedException e) {
+			// ok
+		}
+
+		try {
+			nm.readInput(INVALID_INPUT_LETERS);
 			fail("Era pra ter lançado excessão");
 		} catch (IllegalArgumentException exception) {
 			// ok
@@ -97,6 +107,7 @@ public class testaNumeroPorExtenso {
 				nm.parse("123412"));
 		assertEquals("seis mil quatrocentos e trinta e quatro",
 				nm.parse("6434"));
+		assertEquals("um bilhão", nm.parse("1000000000"));
 
 	}
 }

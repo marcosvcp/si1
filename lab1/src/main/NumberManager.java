@@ -71,7 +71,8 @@ public class NumberManager {
 							+ ESPACO;
 
 			// Apenas no caso do número ser 1 milhão se coloca no singular.
-			if (numberNow.equals("1") && casaSelecionadaIndex == 2) {
+			if (numberNow.equals(Number.UM.getNumberName())
+					&& casaSelecionadaIndex == 2) {
 				casaSelecionada = Number.MILHAO.toString();
 			}
 			switch (numberNow.length()) {
@@ -91,7 +92,8 @@ public class NumberManager {
 					unidade = searchValue(numberEnumValues,
 							numberNow.substring(2)).toString()
 							+ ESPACO;
-					unidade = unidade.trim().equals("zero") ? "" : unidade;
+					unidade = unidade.trim()
+							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
 					dezena = searchValue(numberEnumValues,
 							(numberNow.toCharArray()[1] + "d")).toString()
 							+ ESPACO;
@@ -112,6 +114,8 @@ public class NumberManager {
 					unidade = searchValue(numberEnumValues,
 							numberNow.substring(1)).toString()
 							+ ESPACO;
+					unidade = unidade.trim()
+							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
 					dezena = searchValue(numberEnumValues,
 							(numberNow.toCharArray()[0] + "d")).toString()
 							+ ESPACO;
@@ -160,7 +164,6 @@ public class NumberManager {
 	 */
 	private boolean isSpecialCase(String numberNow, int length) {
 		return (numberNow.toCharArray()[length - 2] == ('1'));
-
 	}
 
 	/**
@@ -230,7 +233,7 @@ public class NumberManager {
 					"A entrada deve ser não vazia. " + ERROR_PROMPT
 							+ INITIAL_PROMPT);
 		}
-		return parse(numberInput);
+		return parse(String.format("%d", Integer.parseInt(numberInput)));
 	}
 
 	public HashMap<Integer, Number> getNumerationMap() {
