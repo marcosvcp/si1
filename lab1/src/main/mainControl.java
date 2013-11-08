@@ -2,11 +2,8 @@ package main;
 
 import java.util.Scanner;
 
-import javax.naming.OperationNotSupportedException;
-
 public class mainControl {
-	public static void main(String[] args)
-			throws OperationNotSupportedException {
+	public static void main(String[] args) {
 		Scanner input = new Scanner(System.in);
 		NumberManager nm = new NumberManager();
 		System.err.println(NumberManager.INITIAL_PROMPT);

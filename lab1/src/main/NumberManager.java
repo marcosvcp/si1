@@ -11,7 +11,6 @@ import com.google.common.base.Strings;
  * parser para extenso de um número dado como String.
  */
 public class NumberManager {
-
 	public static final String INITIAL_PROMPT = "Digite um número natural entre 0 e 1000000000 (um bilhão) :\n";
 	public static final String ERROR_PROMPT = "Apenas números naturais podem ser considerados válidos.\n";
 	private final String ESPACO = " ";
@@ -43,7 +42,6 @@ public class NumberManager {
 	 * @return O número por extenso.
 	 */
 	public String parse(String number) {
-
 		StringBuilder numberFullOutPut = new StringBuilder("");
 		String[] numberArray = separaNumeros(number);
 		Number[] numberEnumValues = Number.values();
@@ -76,6 +74,33 @@ public class NumberManager {
 				casaSelecionada = Number.MILHAO.toString();
 			}
 			switch (numberNow.length()) {
+			case 1:
+				// Caso do número ter apenas a casa das unidades.
+				unidade = searchValue(numberEnumValues, numberNow.substring(0))
+						.toString() + ESPACO;
+				if (isLastNumber) {
+					unidade = searchValue(numberEnumValues,
+							numberNow.substring(0)).toString();
+				}
+				break;
+			case 2:
+				// Caso do número ter apenas a casa das dezenas.
+				if (isSpecialCase(numberNow, 2)) {
+					unidade = "";
+					dezena = searchValue(numberEnumValues,
+							numberNow.substring(0)).toString()
+							+ ESPACO;
+				} else {
+					unidade = searchValue(numberEnumValues,
+							numberNow.substring(1)).toString()
+							+ ESPACO;
+					unidade = unidade.trim()
+							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
+					dezena = searchValue(numberEnumValues,
+							(numberNow.toCharArray()[0] + "d")).toString()
+							+ ESPACO;
+				}
+				break;
 			// Caso do número ter a casa das centenas
 			case 3:
 				// Caso especial do número ser 100
@@ -102,45 +127,15 @@ public class NumberManager {
 						numberNow.toCharArray()[0] + "c").toString()
 						+ ESPACO;
 				break;
-
-			case 2:
-				// Caso do número ter apenas a casa das dezenas.
-				if (isSpecialCase(numberNow, 2)) {
-					unidade = "";
-					dezena = searchValue(numberEnumValues,
-							numberNow.substring(0)).toString()
-							+ ESPACO;
-				} else {
-					unidade = searchValue(numberEnumValues,
-							numberNow.substring(1)).toString()
-							+ ESPACO;
-					unidade = unidade.trim()
-							.equals(Number.ZERO.getNumberName()) ? "" : unidade;
-					dezena = searchValue(numberEnumValues,
-							(numberNow.toCharArray()[0] + "d")).toString()
-							+ ESPACO;
-				}
-				break;
-			case 1:
-				// Caso do número ter apenas a casa das unidades.
-				unidade = searchValue(numberEnumValues, numberNow.substring(0))
-						.toString() + ESPACO;
-				if (isLastNumber) {
-					unidade = searchValue(numberEnumValues,
-							numberNow.substring(0)).toString();
-				}
-				break;
 			default:
 				break;
 			}
-
 			String joinNumbers = join(centena, dezena, unidade);
 			String outputToWrite = Strings.isNullOrEmpty(joinNumbers.trim()) ? ""
 					: joinNumbers + casaSelecionada + ESPACO;
 
 			numberFullOutPut.append(outputToWrite);
 		}
-
 		String formattedNumber = fixSpaces(numberFullOutPut.toString());
 		return formattedNumber;
 	}
@@ -204,11 +199,12 @@ public class NumberManager {
 	 * Junta todos os números dados os colocando entre conectivos.
 	 */
 	public String join(String... numbers) {
+		final String CONECTIVO = "e ";
 		StringBuilder joinNumbersString = new StringBuilder("");
 		for (int index = 0; index < numbers.length; index++) {
 			if (!Strings.isNullOrEmpty(joinNumbersString.toString())
 					&& !Strings.isNullOrEmpty(numbers[index].trim())) {
-				joinNumbersString.append("e ");
+				joinNumbersString.append(CONECTIVO);
 			}
 			joinNumbersString.append(numbers[index]);
 		}
@@ -225,13 +221,12 @@ public class NumberManager {
 	public String readInput(String numberInput)
 			throws OperationNotSupportedException, IllegalArgumentException {
 		if (numberInput.matches("[a-zA-Z]+.")) {
-			throw new IllegalArgumentException("Letras não são válidas. "
+			throw new OperationNotSupportedException("Letras não são válidas. "
 					+ ERROR_PROMPT + INITIAL_PROMPT);
 		}
 		if (!numberInput.matches("[0-9]{1,9}")) {
-			throw new OperationNotSupportedException(
-					"A entrada deve ser não vazia. " + ERROR_PROMPT
-							+ INITIAL_PROMPT);
+			throw new IllegalArgumentException("A entrada deve ser não vazia. "
+					+ ERROR_PROMPT + INITIAL_PROMPT);
 		}
 		return parse(String.format("%d", Integer.parseInt(numberInput)));
 	}

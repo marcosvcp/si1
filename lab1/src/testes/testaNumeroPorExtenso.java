@@ -78,7 +78,9 @@ public class testaNumeroPorExtenso {
 		try {
 			nm.readInput(STRING_VAZIA);
 			fail("Era pra ter lançado excessão");
-		} catch (OperationNotSupportedException exception) {
+		} catch (IllegalArgumentException exception) {
+			// ok
+		} catch (OperationNotSupportedException e) {
 			// ok
 		}
 		try {
