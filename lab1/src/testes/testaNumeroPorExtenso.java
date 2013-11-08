@@ -1,65 +1,73 @@
 package testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import javax.naming.OperationNotSupportedException;
 
 import main.Number;
 import main.NumberManager;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class testaNumeroPorExtenso {
+	private NumberManager nm;
+
+	@Before
+	public void setUp() {
+		nm = new NumberManager();
+	}
 
 	@Test
 	public void testaUnidadesNumerosPorExtenso() {
-		assertEquals(NumberManager.parse("0"), Number.ZERO);
-		assertEquals(NumberManager.parse("1"), Number.UM);
-		assertEquals(NumberManager.parse("2"), Number.DOIS);
-		assertEquals(NumberManager.parse("3"), Number.TRES);
-		assertEquals(NumberManager.parse("4"), Number.QUATRO);
-		assertEquals(NumberManager.parse("5"), Number.CINCO);
-		assertEquals(NumberManager.parse("6"), Number.SEIS);
-		assertEquals(NumberManager.parse("7"), Number.SETE);
-		assertEquals(NumberManager.parse("8"), Number.OITO);
-		assertEquals(NumberManager.parse("9"), Number.NOVE);
+		assertEquals(nm.parse("0"), Number.ZERO);
+		assertEquals(nm.parse("1"), Number.UM);
+		assertEquals(nm.parse("2"), Number.DOIS);
+		assertEquals(nm.parse("3"), Number.TRES);
+		assertEquals(nm.parse("4"), Number.QUATRO);
+		assertEquals(nm.parse("5"), Number.CINCO);
+		assertEquals(nm.parse("6"), Number.SEIS);
+		assertEquals(nm.parse("7"), Number.SETE);
+		assertEquals(nm.parse("8"), Number.OITO);
+		assertEquals(nm.parse("9"), Number.NOVE);
 	}
 
 	@Test
 	public void testaDezenasNumerosPorExtenso() {
-		assertEquals(NumberManager.parse("10"), Number.DEZ);
-		assertEquals(NumberManager.parse("11"), Number.ONZE);
-		assertEquals(NumberManager.parse("12"), Number.DOZE);
-		assertEquals(NumberManager.parse("13"), Number.TREZE);
-		assertEquals(NumberManager.parse("14"), Number.CATORZE);
-		assertEquals(NumberManager.parse("15"), Number.QUINZE);
-		assertEquals(NumberManager.parse("16"), Number.DEZESSEIS);
-		assertEquals(NumberManager.parse("17"), Number.DEZESSETE);
-		assertEquals(NumberManager.parse("18"), Number.DEZOITO);
-		assertEquals(NumberManager.parse("19"), Number.DEZENOVE);
-		assertEquals(NumberManager.parse("20"), Number.VINTE);
-		assertEquals(NumberManager.parse("30"), Number.TRINTA);
-		assertEquals(NumberManager.parse("40"), Number.QUARENTA);
-		assertEquals(NumberManager.parse("50"), Number.CINQUENTA);
-		assertEquals(NumberManager.parse("60"), Number.SESSENTA);
-		assertEquals(NumberManager.parse("70"), Number.SETENTA);
-		assertEquals(NumberManager.parse("80"), Number.OITENTA);
-		assertEquals(NumberManager.parse("90"), Number.NOVENTA);
+		assertEquals(nm.parse("10"), Number.DEZ);
+		assertEquals(nm.parse("11"), Number.ONZE);
+		assertEquals(nm.parse("12"), Number.DOZE);
+		assertEquals(nm.parse("13"), Number.TREZE);
+		assertEquals(nm.parse("14"), Number.CATORZE);
+		assertEquals(nm.parse("15"), Number.QUINZE);
+		assertEquals(nm.parse("16"), Number.DEZESSEIS);
+		assertEquals(nm.parse("17"), Number.DEZESSETE);
+		assertEquals(nm.parse("18"), Number.DEZOITO);
+		assertEquals(nm.parse("19"), Number.DEZENOVE);
+		assertEquals(nm.parse("20"), Number.VINTE);
+		assertEquals(nm.parse("30"), Number.TRINTA);
+		assertEquals(nm.parse("40"), Number.QUARENTA);
+		assertEquals(nm.parse("50"), Number.CINQUENTA);
+		assertEquals(nm.parse("60"), Number.SESSENTA);
+		assertEquals(nm.parse("70"), Number.SETENTA);
+		assertEquals(nm.parse("80"), Number.OITENTA);
+		assertEquals(nm.parse("90"), Number.NOVENTA);
 	}
 
 	@Test
 	public void testaCentenasNumerosPorExtenso() {
 		final String CENTO = "cento";
 		assertEquals(CENTO, Number.CENTO);
-		assertEquals(NumberManager.parse("100"), Number.CEM);
-		assertEquals(NumberManager.parse("200"), Number.DUZENTOS);
-		assertEquals(NumberManager.parse("300"), Number.TREZENTOS);
-		assertEquals(NumberManager.parse("400"), Number.QUATROCENTOS);
-		assertEquals(NumberManager.parse("500"), Number.QUINHENTOS);
-		assertEquals(NumberManager.parse("600"), Number.SEISCENTOS);
-		assertEquals(NumberManager.parse("700"), Number.SETECENTOS);
-		assertEquals(NumberManager.parse("800"), Number.OITOCENTOS);
-		assertEquals(NumberManager.parse("900"), Number.NOVECENTOS);
+		assertEquals(nm.parse("100"), Number.CEM);
+		assertEquals(nm.parse("200"), Number.DUZENTOS);
+		assertEquals(nm.parse("300"), Number.TREZENTOS);
+		assertEquals(nm.parse("400"), Number.QUATROCENTOS);
+		assertEquals(nm.parse("500"), Number.QUINHENTOS);
+		assertEquals(nm.parse("600"), Number.SEISCENTOS);
+		assertEquals(nm.parse("700"), Number.SETECENTOS);
+		assertEquals(nm.parse("800"), Number.OITOCENTOS);
+		assertEquals(nm.parse("900"), Number.NOVECENTOS);
 	}
 
 	@Test
@@ -67,13 +75,13 @@ public class testaNumeroPorExtenso {
 		final String STRING_VAZIA = "";
 		final String INVALID_INPUT = "Qualquercoisa";
 		try {
-			NumberManager.readInput(STRING_VAZIA);
+			nm.readInput(STRING_VAZIA);
 			fail("Era pra ter lançado excessão");
 		} catch (OperationNotSupportedException exception) {
 			// ok
 		}
 		try {
-			NumberManager.readInput(INVALID_INPUT);
+			nm.readInput(INVALID_INPUT);
 			fail("Era pra ter lançado excessão");
 		} catch (OperationNotSupportedException exception) {
 			// ok
@@ -82,13 +90,11 @@ public class testaNumeroPorExtenso {
 
 	@Test
 	public void testaCombinacoesPorExtenso() {
-		assertEquals(NumberManager.parse("101"),
-				NumberManager.join(Number.CENTO, Number.ZERO, Number.UM));
-		assertEquals(NumberManager.parse("123412"), NumberManager.join(
-				Number.CENTO, Number.VINTE, Number.TRES, Number.QUATROCENTOS,
-				Number.DEZ, Number.DOIS));
-		assertEquals(NumberManager.parse("6434"), NumberManager.join(
-				Number.SEIS, Number.QUATROCENTOS, Number.TRINTA, Number.QUATRO));
+		assertEquals(nm.parse("101"), "cento e um");
+		assertEquals(nm.parse("123412"),
+				"centro e vinte e tres mil quatrocentos e doze");
+		assertEquals(nm.parse("6434"),
+				"seis mil quatrocentos e trinca e quatro");
 
 	}
 }

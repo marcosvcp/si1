@@ -8,6 +8,7 @@ public class mainControl {
 	public static void main(String[] args)
 			throws OperationNotSupportedException {
 		Scanner input = new Scanner(System.in);
-		NumberManager.readInput(input.nextLine());
+		NumberManager nm = new NumberManager();
+		System.out.println(nm.readInput(input.nextLine()));
 	}
 }
