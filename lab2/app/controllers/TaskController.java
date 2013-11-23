@@ -14,7 +14,7 @@ public class TaskController extends Controller {
 	}
 
 	public static Result tasks() {
-		return TODO;
+		return ok(views.html.index.render(Task.all(), taskForm));
 	}
 
 	public static Result newTask() {

@@ -3,29 +3,33 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import play.data.validation.Constraints.Required;
+import play.db.ebean.Model;
+
 import com.google.common.base.Objects;
 
-public class Task implements Comparable<Task> {
+public class Task extends Model implements Comparable<Task> {
 
-	private Long id;
+	public Long id;
+
+	public static Finder<Long, Task> find = new Finder(Long.class, Task.class);
+
+	@Required
 	private String label;
+
+	@Required
 	private int priority;
+
+	@Required
 	private String description;
+
+	public Task() {
+	}
 
 	public Task(String label, String description, int priority) {
 		this.label = label;
 		this.priority = priority;
 		this.description = description;
-	}
-
-	public List<Task> all() {
-		return new ArrayList<Task>();
-	}
-
-	public static void create(Task task) {
-	}
-
-	public static void delete(Long id) {
 	}
 
 	public String getLabel() {
@@ -50,6 +54,18 @@ public class Task implements Comparable<Task> {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public static List<Task> all() {
+		return find.all();
+	}
+
+	public static void create(Task task) {
+		task.save();
+	}
+
+	public static void delete(Long id) {
+		find.ref(id).delete();
 	}
 
 	@Override
