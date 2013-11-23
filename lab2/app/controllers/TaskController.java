@@ -5,7 +5,8 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-public class Application extends Controller {
+public class TaskController extends Controller {
+
 	static Form<Task> taskForm = Form.form(Task.class);
 
 	public static Result index() {
@@ -23,5 +24,4 @@ public class Application extends Controller {
 	public static Result deleteTask(Long id) {
 		return TODO;
 	}
-
 }
