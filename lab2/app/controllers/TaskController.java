@@ -1,27 +1,28 @@
 package controllers;
 
-import models.Task;
-import play.data.Form;
+import play.i18n.Messages;
 import play.mvc.Controller;
-import play.mvc.Result;
 
 public class TaskController extends Controller {
 
-	static Form<Task> taskForm = Form.form(Task.class);
-
-	public static Result index() {
-		return redirect(routes.Application.tasks());
+	public static String nomeDaAplicacao() {
+		return Messages.get("listaDeAfazeres");
 	}
 
-	public static Result tasks() {
-		return ok(views.html.index.render(Task.all(), taskForm));
+	public static String nomeDaTarefa() {
+		return Messages.get("nomeDaTarefa");
 	}
 
-	public static Result newTask() {
-		return TODO;
+	public static String descricaoDaTarefa() {
+		return Messages.get("descricaoTarefa");
+	}
+	
+	public static String tasks() {
+		return Messages.get("tarefas");
+	}
+	
+	public static String addNovaTarefa(){
+		return Messages.get("adicionarNovaTarefa");
 	}
 
-	public static Result deleteTask(Long id) {
-		return TODO;
-	}
 }

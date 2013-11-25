@@ -1,63 +1,79 @@
 package models;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 import play.data.validation.Constraints.Required;
 import play.db.ebean.Model;
 
 import com.google.common.base.Objects;
 
+@Entity
 public class Task extends Model implements Comparable<Task> {
 
-	public Long id;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public static Finder<Long, Task> find = new Finder(Long.class, Task.class);
+	@Id
+	private Long id;
 
-	@Required
-	private String label;
+	public static Finder<Long, Task> find = new Finder<Long, Task>(Long.class,
+			Task.class);
 
-	@Required
-	private int priority;
+	@Required(message = "O nome da tarefa é obrigatório")
+	private String nome;
 
-	@Required
-	private String description;
+	@Required(message = "A prioridade da tarefa é obrigatória")
+	private int prioridade;
+
+	@Required(message = "A descrição da tarefa é obrigatória")
+	private String descricao;
+	
+	private boolean feita;
 
 	public Task() {
 	}
 
 	public Task(String label, String description, int priority) {
-		this.label = label;
-		this.priority = priority;
-		this.description = description;
+		this.nome = label;
+		this.prioridade = priority;
+		this.descricao = description;
+		this.feita = feita;
 	}
 
-	public String getLabel() {
-		return label;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public int getPriority() {
-		return priority;
+	public int getPrioridade() {
+		return prioridade;
 	}
 
-	public void setPriority(int priority) {
-		this.priority = priority;
+	public void setPrioridade(int prioridade) {
+		this.prioridade = prioridade;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public static List<Task> all() {
-		return find.all();
+		List<Task> allTasks = find.all();
+		Collections.sort(allTasks);
+		return allTasks;
 	}
 
 	public static void create(Task task) {
@@ -68,9 +84,17 @@ public class Task extends Model implements Comparable<Task> {
 		find.ref(id).delete();
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int compareTo(Task otherTask) {
-		return this.priority - otherTask.priority;
+		return this.prioridade - otherTask.prioridade;
 	}
 
 	@Override
@@ -79,11 +103,19 @@ public class Task extends Model implements Comparable<Task> {
 			return false;
 		}
 		Task otherTask = (Task) obj;
-		return Objects.equal(otherTask.getLabel(), this.getLabel());
+		return Objects.equal(otherTask.getNome(), this.getNome());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hashCode(getLabel());
+		return Objects.hashCode(getNome());
+	}
+
+	public boolean isFeita() {
+		return feita;
+	}
+
+	public void setFeita(boolean feita) {
+		this.feita = feita;
 	}
 }
