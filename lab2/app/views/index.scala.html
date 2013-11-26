@@ -5,28 +5,28 @@
 @main(Messages("listaDeAfazeres")) {
 	
 	<div class="col-xs-12 col-md-8">
-	<div class="panel panel-default">
+		<div class="panel panel-default">
 	  
-	    <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">@Messages("adicionarNovaTarefa")</h3>
             </div>
-		</div>	    
 	    @form(routes.Application.newTask()) {
-	        <div class="container">
-	        
-	       		 @inputText(taskForm("Nome")) 
-	       		 @inputText(taskForm("Prioridade"))
-	       		 @inputText(taskForm("Descricao"))
+	        <div class="container	">
+	         	<div class="col-xs-3">
+	       		 	@inputText(taskForm("Nome"),'placeholder -> Messages("projeto"))
+	       		 </div>
+	       		 <div class="col-xs-3">
+	       		 @inputText(taskForm("Descricao"), 'placeholder -> Messages("descricao"))
+	       		 </div>
+	       		 @inputText(taskForm("Prioridade"), 'placeholder -> Messages("prioridade"))
+	       		 <div class="col-xs-2">
 	       		<button class="btn btn-primary " type="submit" >@Messages("criar")</button>
-	       		
+	       		</div>
 	       </div>
 	    }
-	    
-	   </br>
-	   </br>
-	   </br>
-	   </br>
+	    </br>
+	    </div>
+	    <div class="panel panel-default col-xs-6">
 	   
 		<div class="panel-heading">
 			<h3 class="panel-title">@Messages("tarefasTODO")</h3>
@@ -34,27 +34,31 @@
     
 	    <ul>
 	    
-	    <div class="panel-body">
 	    	@for(task <- tasks) {
 	    		@if(!task.isFeita()) {
-	            	<li class="list-group-item">
+	            	<li class="list-group-item" title="">
 	                	@Messages("nomeDaTarefa") @task.getNome() </br>
 	                </li>
 	                <li class="list-group-item">
 	               		@Messages("descricaoTarefa") @task.getDescricao() </br>
 	                </li>
-	                
+	                 <li class="list-group-item">
+	               		@Messages("prioridade") @task.getPrioridade() </br>
+	                </li>	
+	                <table>
 	                @form(routes.Application.updateTask(task.getId())) {
-		          				<button class="btn btn-primary" type="submit" >@Messages("Fazer tarefa")</button>
+		          				<button class="btn btn-primary  col-md-3" type="submit" >@Messages("Fazer tarefa")</button>
 		          	}
-		          	
 	                @form(routes.Application.deleteTask(task.getId())) {
-	                	<button class="btn btn-danger" type="submit" >@Messages("deletar")</button>
+	                	<button class="btn btn-danger  " type="submit" >@Messages("deletar")</button>
 	                }
+	                </table>
 	                </br>
 	        }
 	     }
 		</ul>
+		</div>
+		<div class="panel panel-default col-xs-6">
 			<div class="panel-heading">
               <h3 class="panel-title">@Messages("tarefasDONE")</h3>
             </div>
@@ -68,6 +72,9 @@
 	                <li class="list-group-item">
 	               		@Messages("descricaoTarefa") @task.getDescricao() </br>
 	                </li>
+	                <li class="list-group-item">
+	               		@Messages("prioridade") @task.getPrioridade() </br>
+	                </li>
 
 	                @form(routes.Application.deleteTask(task.getId())) {
 	                	<button class="btn btn-danger " type="submit" >@Messages("deletar")</button>
@@ -77,12 +84,12 @@
 	     }
 		</ul>
 	</div>
-	
 	<div id="footer">
-      <div class="container">
+      <div class="container col-xs-6">
         <p class="text-muted credit">TODO List <a href="https://docs.google.com/document/d/1D1RMOtkj55_luj-e756I-OJ4mxX3BSj02X_MgnvOz5Q/edit">Lab SI1</a>.</p>
       </div>
 	</div>
 	</div>
+	
 }
 	
