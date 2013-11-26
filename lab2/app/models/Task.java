@@ -11,6 +11,9 @@ import play.db.ebean.Model;
 
 import com.google.common.base.Objects;
 
+/**
+ * Entidade de armazenamento de uma tarefa.
+ */
 @Entity
 public class Task extends Model implements Comparable<Task> {
 
@@ -70,6 +73,10 @@ public class Task extends Model implements Comparable<Task> {
 		this.descricao = descricao;
 	}
 
+	/**
+	 * Retorna todas as tarefas ordenadas segundo o {@link
+	 * Task#compareTo(otherTask)}.
+	 */
 	public static List<Task> all() {
 		List<Task> allTasks = find.all();
 		Collections.sort(allTasks);
