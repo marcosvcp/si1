@@ -1,5 +1,9 @@
 listaDeAfazeres=Lista de Afazeres
 descricaoTarefa=Descrição :  
 nomeDaTarefa=Projeto : 
+error.required=Este campo é obrigatorio.
 tarefas=Tarefas : 
 adicionarNovaTarefa=Adicionar nova Tarefa
+feita=Feita
+deletar=Deletar
+criar=Criar

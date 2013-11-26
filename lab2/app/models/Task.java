@@ -33,17 +33,17 @@ public class Task extends Model implements Comparable<Task> {
 
 	@Required(message = "A descrição da tarefa é obrigatória")
 	private String descricao;
-	
+
 	private boolean feita;
 
 	public Task() {
 	}
 
-	public Task(String label, String description, int priority) {
-		this.nome = label;
-		this.prioridade = priority;
-		this.descricao = description;
-		this.feita = feita;
+	public Task(String nome, String descricao, int prioridade) {
+		this.nome = nome;
+		this.prioridade = prioridade;
+		this.descricao = descricao;
+		this.feita = false;
 	}
 
 	public String getNome() {

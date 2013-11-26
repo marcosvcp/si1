@@ -2,43 +2,52 @@
 
 @import helper._
 
-@main(TaskController.nomeDaAplicacao()) {
-     <div class="jumbotron">
+@main(Messages("listaDeAfazeres")) {
 
-    <h1>@tasks.size() @TaskController.tasks()</h1>
-    
-    <ul>
-        @for(task <- tasks) {
-            	<li>
-                @TaskController.nomeDaTarefa() @task.getNome() </br>
-                </li>
-                <li>
-                @TaskController.descricaoDaTarefa() @task.getDescricao() </br>
-                </li>
-                <li><label class="checkbox">
-          <input type="checkbox" value=@task.isFeita()>Feita ?
-        		</label></li>
-                @form(routes.Application.deleteTask(task.getId())) {
-                <button class="btn btn-primary " type="submit" >Deletar </button>
-                }</br>
-        }
-    </ul>
-    
-    <h2>@TaskController.addNovaTarefa()</h2>
-    
-    @form(routes.Application.newTask()) {
-        
-        <div class="container">
-       		 @inputText(taskForm("Nome")) 
-       		 @inputText(taskForm("Prioridade"))
-       		 @inputText(taskForm("Descricao"))
-       		 <li><label class="checkbox"> <input type="checkbox"
-				value=@taskForm("feita")> Feita ?
-		</label></li>
-        </div>
-       <button class="btn btn-primary " type="submit" >Criar</button>
-        
-    }
-    </div>
-    
+
+		<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">@tasks.size() @Messages("tarefas")</h3>
+            </div>
+            
+              
+	    <ul >
+	    <div class="panel-body">
+	    	@for(task <- tasks) {
+	    		
+	            	<li class="list-group-item">
+	                	@Messages("nomeDaTarefa") @task.getNome() </br>
+	                </li>
+	                <li class="list-group-item">
+	               		@Messages("descricaoTarefa") @task.getDescricao() </br>
+	                </li>
+	                <li class="list-group-item">
+	                		@form(routes.Application.updateTask(task.getId())) {
+		          				<input type="checkbox" value=@task.isFeita()>@Messages("feita")
+		          			}
+		        	</li>
+	                @form(routes.Application.deleteTask(task.getId())) {
+	                	<button class="btn btn-primary " type="submit" >@Messages("deletar")</button>
+	                }
+	                </br>
+	        }
+		</ul>
+		</div>
+	</div>
+	    
+	    <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">@Messages("adicionarNovaTarefa")</h3>
+            </	div>
+		</div>	    
+	    @form(routes.Application.newTask()) {
+	        <div class="container">
+	        
+	       		 @inputText(taskForm("Nome")) 
+	       		 @inputText(taskForm("Prioridade"))
+	       		 @inputText(taskForm("Descricao"))
+	       		<button class="btn btn-primary " type="submit" >@Messages("criar")</button>
+	       		
+	       </div>
+	    }
 }

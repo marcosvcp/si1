@@ -2,7 +2,6 @@ package controllers;
 
 import models.Task;
 import play.data.Form;
-import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -25,6 +24,13 @@ public class Application extends Controller {
 			Task.create(filledForm.get());
 			return redirect(routes.Application.tasks());
 		}
+	}
+
+	public static Result updateTask(Long id) {
+		Task taskToChange = Task.find.byId(id);
+		taskToChange.setFeita(!taskToChange.isFeita());
+		taskToChange.update();
+		return redirect(routes.Application.tasks());
 	}
 
 	public static Result deleteTask(Long id) {
