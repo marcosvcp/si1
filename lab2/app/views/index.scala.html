@@ -3,18 +3,18 @@
 @import helper._
 
 @main(Messages("listaDeAfazeres")) {
-
-
 		<div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">@tasks.size() @Messages("tarefas")</h3>
+              <h3 class="panel-title">@Messages("tarefasDONE")</h3>
             </div>
             
               
 	    <ul >
-	    <div class="panel-body">
+	    <div class="row">
+	    
+	    <div class="panel-body" >
 	    	@for(task <- tasks) {
-	    		
+	    		@if(task.isFeita()) {
 	            	<li class="list-group-item">
 	                	@Messages("nomeDaTarefa") @task.getNome() </br>
 	                </li>
@@ -23,7 +23,40 @@
 	                </li>
 	                <li class="list-group-item">
 	                		@form(routes.Application.updateTask(task.getId())) {
-		          				<input type="checkbox" value=@task.isFeita()>@Messages("feita")
+		          				@checkbox(
+                						taskForm("feita"), 
+               							'_label -> "Feita ?", '_text -> None,
+               							'_showConstraints -> false)
+		          			}
+		        	</li>
+	                @form(routes.Application.deleteTask(task.getId())) {
+	                	<button class="btn btn-primary" type="submit" >@Messages("deletar")</button>
+	                }
+	                </br>
+	        }
+	     }
+		</ul>
+		
+			<div class="panel-heading">
+              <h3 class="panel-title">@Messages("tarefasTODO")</h3>
+            </div>
+		<ul>
+		 
+	    <div class="panel-body">
+	    	@for(task <- tasks) {
+	    		@if(!task.isFeita()) {
+	            	<li class="list-group-item">
+	                	@Messages("nomeDaTarefa") @task.getNome() </br>
+	                </li>
+	                <li class="list-group-item">
+	               		@Messages("descricaoTarefa") @task.getDescricao() </br>
+	                </li>
+	                <li class="list-group-item">
+	                		@form(routes.Application.updateTask(task.getId())) {
+		          				@checkbox(
+                						taskForm("feita"), 
+               							'_label -> "Feita ?", '_text -> None,
+               							'_showConstraints -> false)
 		          			}
 		        	</li>
 	                @form(routes.Application.deleteTask(task.getId())) {
@@ -31,6 +64,8 @@
 	                }
 	                </br>
 	        }
+	     }
+	    </div>
 		</ul>
 		</div>
 	</div>
@@ -38,7 +73,7 @@
 	    <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">@Messages("adicionarNovaTarefa")</h3>
-            </	div>
+            </div>
 		</div>	    
 	    @form(routes.Application.newTask()) {
 	        <div class="container">
@@ -50,4 +85,14 @@
 	       		
 	       </div>
 	    }
+	   </br>
+	   </br>
+	   </br>
+	   </br>
+	<div id="footer">
+      <div class="container">
+        <p class="text-muted credit">TODO List <a href="https://docs.google.com/document/d/1D1RMOtkj55_luj-e756I-OJ4mxX3BSj02X_MgnvOz5Q/edit">Lab SI1</a>.</p>
+      </div>
+	</div>
 }
+	
